@@ -24,6 +24,10 @@ if not fs.exists("radar") then
     fs.makeDir("radar")
 end
 
+if not fs.exists("radar/graphics") then
+    fs.makeDir("radar/graphics")
+end
+
 if not fs.exists("radar/assets") then
     fs.makeDir("radar/assets")
 end
