@@ -14,7 +14,8 @@ local files = {
     "radar/radar/sweep.lua",
     "radar/audio/ping.lua",
     "radar/startup.lua",
-    "radar/assets/ping.dfpwm"
+    "radar/assets/ping.dfpwm",
+    "radar/demo.lua"
 }
 
 local base = ("https://raw.githubusercontent.com/%s/%s/%s/"):format(user, repo, branch)
