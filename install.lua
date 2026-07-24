@@ -5,11 +5,14 @@ local branch = "main"
 local files = {
     "radar/main.lua",
     "radar/config.lua",
-    "radar/renderer.lua",
-    "radar/draw.lua",
-    "radar/radar.lua",
-    "radar/contacts.lua",
-    "radar/audio.lua",
+    "radar/graphics/framebuffer.lua",
+    "radar/graphics/palette.lua",
+    "radar/graphics/renderer.lua",
+    "radar/graphics/draw.lua",
+    "radar/radar/contacts.lua",
+    "radar/radar/engine.lua",
+    "radar/radar/sweep.lua",
+    "radar/audio/ping.lua",
     "radar/startup.lua",
     "radar/assets/ping.dfpwm"
 }
