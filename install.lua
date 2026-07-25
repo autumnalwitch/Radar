@@ -38,27 +38,37 @@ end
 
 for _, file in ipairs(files) do
 
+    local url = base .. file
+
+    print("")
+    print("FILE:")
+    print(file)
+
+    print("URL:")
+    print(url)
+
     local dir = fs.getDir(file)
 
     if dir ~= "" and not fs.exists(dir) then
+        print("Creating directory: " .. dir)
         fs.makeDir(dir)
     end
 
+    print("Downloading...")
+
+    local result = shell.run(
+        "wget",
+        url,
+        file
+    )
+
+    print("Result:")
+    print(tostring(result))
+
     if fs.exists(file) then
-        fs.delete(file)
-    end
-
-    print("Downloading " .. file)
-
-    local success =
-        shell.run(
-            "wget",
-            base .. file,
-            file
-        )
-
-    if not success then
-        print("FAILED: " .. file)
+        print("SUCCESS: " .. file)
+    else
+        print("MISSING AFTER DOWNLOAD: " .. file)
     end
 
 end
