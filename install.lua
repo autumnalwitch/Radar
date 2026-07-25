@@ -3,28 +3,32 @@ local repo = "radar"
 local branch = "main"
 
 local files = {
-    "radar/main.lua",
-    "radar/config.lua",
-    "radar/graphics/framebuffer.lua",
-    "radar/graphics/palette.lua",
-    "radar/graphics/renderer.lua",
-    "radar/graphics/draw.lua",
-    "radar/radar/contacts.lua",
-    "radar/radar/engine.lua",
-    "radar/radar/sweep.lua",
-    "radar/audio/ping.lua",
-    "radar/startup.lua",
-    "radar/assets/ping.dfpwm",
-    "radar/demo.lua"
+    "main.lua",
+    "config.lua",
+    "graphics/framebuffer.lua",
+    "graphics/palette.lua",
+    "graphics/renderer.lua",
+    "graphics/draw.lua",
+    "radar/contacts.lua",
+    "radar/engine.lua",
+    "radar/sweep.lua",
+    "audio/ping.lua",
+    "startup.lua",
+    "assets/radar.dfpwm",
+    "demo.lua"
 }
 
-local base = ("https://raw.githubusercontent.com/%s/%s/%s/"):format(user, repo, branch)
+local base = ("https://raw.githubusercontent.com/%s/%s/"):format(user, repo, branch)
 
-if not fs.exists("radar") then
-    fs.makeDir("radar")
+if not fs.exists("radar/radar") then
+    fs.makeDir("radar/radar")
 end
 
 if not fs.exists("radar/graphics") then
+    fs.makeDir("radar/graphics")
+end
+
+if not fs.exists("radar/audio") then
     fs.makeDir("radar/graphics")
 end
 
@@ -33,12 +37,30 @@ if not fs.exists("radar/assets") then
 end
 
 for _, file in ipairs(files) do
+
+    local dir = fs.getDir(file)
+
+    if dir ~= "" and not fs.exists(dir) then
+        fs.makeDir(dir)
+    end
+
     if fs.exists(file) then
         fs.delete(file)
     end
 
     print("Downloading " .. file)
-    shell.run("wget", base .. file, file)
+
+    local success =
+        shell.run(
+            "wget",
+            base .. file,
+            file
+        )
+
+    if not success then
+        print("FAILED: " .. file)
+    end
+
 end
 
 print("Done!")
